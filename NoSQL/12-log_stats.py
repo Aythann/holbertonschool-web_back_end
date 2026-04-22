@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
-"""Script that provides stats about Nginx logs stored in MongoDB."""
+"""Module that provides stats about Nginx logs stored in MongoDB."""
 
 from pymongo import MongoClient
 
 
-if __name__ == "__main__":
+def main() -> None:
+    """Display statistics about Nginx logs."""
     client = MongoClient("mongodb://127.0.0.1:27017")
     collection = client.logs.nginx
 
     print("{} logs".format(collection.count_documents({})))
     print("Methods:")
 
-    for method in ["GET", "POST", "PUT", "PATCH", "DELETE"]:
+    methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
+    for method in methods:
         print("\tmethod {}: {}".format(
             method,
             collection.count_documents({"method": method})
@@ -21,3 +23,7 @@ if __name__ == "__main__":
         "method": "GET",
         "path": "/status"
     })))
+
+
+if __name__ == "__main__":
+    main()
