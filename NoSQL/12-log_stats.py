@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Module that provides stats about Nginx logs stored in MongoDB."""
+"""Script that provides stats about Nginx logs stored in MongoDB."""
 
 from pymongo import MongoClient
 
@@ -12,8 +12,7 @@ def main() -> None:
     print("{} logs".format(collection.count_documents({})))
     print("Methods:")
 
-    methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
-    for method in methods:
+    for method in ["GET", "POST", "PUT", "PATCH", "DELETE"]:
         print("\tmethod {}: {}".format(
             method,
             collection.count_documents({"method": method})
